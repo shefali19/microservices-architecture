@@ -13,7 +13,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequestMapping("/users")
 @Slf4j
-public class UserController {
+public class UserController implements UserAPI {
     @Autowired
     private UserServiceImpl userService;
 
@@ -36,8 +36,8 @@ public class UserController {
         return ok().body(userService.fetchAll());
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseTemplate getUserDetailsById(@PathVariable("id") long userId){
+    @GetMapping(value = "/{userid}")
+    public ResponseTemplate getUserDetailsById(@PathVariable("userid") long userId){
         log.info("Controller::" +
                 "fetch the all information of an user with uploaded documents and department details ::::");
         return userService.findByUserDetails (userId);

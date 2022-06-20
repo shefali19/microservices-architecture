@@ -44,9 +44,9 @@ public class UploadServiceImpl implements UploadService {
 
             UploadFileMetadata uploadData = new UploadFileMetadata();
             uploadData.setUploadDirectory(uploadDirectory);
-            uploadData.setDocumentType(documentMetadata.getDocumentType());
+            uploadData.setDocumentType(file.getContentType());
             uploadData.setUserId(documentMetadata.getUserId());
-            uploadData.setDocumentname(documentMetadata.getDocumentType() +
+            uploadData.setDocumentname(documentMetadata.getDocumentType() + "_" +
                     String.valueOf(documentMetadata.getUserId()));
             uploadRepository.save(uploadData);
             log.info("File Upload content has been saved into database");
