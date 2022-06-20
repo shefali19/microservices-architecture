@@ -3,25 +3,52 @@ spring:
     config:
       enabled: true
       uri: http://localhost:8181
-
     gateway:
+      discovery:
+        locator:
+          enabled: true
       routes:
         - id: USER-SERVICE
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/users/**
+            Path=/users/**
           filters:
+            - AuthFilter
             - name: CircuitBreaker
               args:
                 name: USER-SERVICE
                 fallbackuri: forward:/userServiceFallBack
-
         - id: DEPARTMENT-SERVICE
           uri: lb://DEPARTMENT-SERVICE
           predicates:
-            - Path=/departments/**
+            Path=/departments/**
           filters:
+            - AuthFilter
             - name: CircuitBreaker
               args:
                 name: DEPARTMENT-SERVICE
                 fallbackuri: forward:/departmentServiceFallBack
+        - id: UPLOAD-SERVICE
+          uri: lb://UPLOAD-SERVICE
+          predicates:
+            Path=/upload/**
+          filters:
+            - AuthFilter
+            - name: CircuitBreaker
+              args:
+                name: UPLOAD-SERVICE
+                fallbackuri: forward:/uploadServiceFallBack
+        - id: LOGIN-SERVICE
+          uri: lb://LOGIN-SERVICE
+          predicates:
+            Path=/login/**
+        - id: DOWNLOAD-SERVICE
+          uri: lb://DOWNLOAD-SERVICE
+          predicates:
+            Path=/download/**
+          filters:
+            - AuthFilter
+            - name: CircuitBreaker
+              args:
+                name: DOWNLOAD-SERVICE
+                fallbackuri: forward:/downloadServiceFallBack

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Validated
-@Api(tags={"user"})
+@Api(tags={"users"})
 public interface UserAPI {
 
     @ApiOperation(
