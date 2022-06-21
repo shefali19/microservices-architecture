@@ -13,7 +13,7 @@ spring:
           predicates:
             Path=/users/**
           filters:
-            - AuthFilter
+            - JWTFilter=RSA256,HS256
             - name: CircuitBreaker
               args:
                 name: USER-SERVICE
@@ -23,7 +23,7 @@ spring:
           predicates:
             Path=/departments/**
           filters:
-            - AuthFilter
+            - JWTFilter=RSA256,HS256
             - name: CircuitBreaker
               args:
                 name: DEPARTMENT-SERVICE
@@ -33,22 +33,12 @@ spring:
           predicates:
             Path=/upload/**
           filters:
-            - AuthFilter
+            - JWTFilter=RSA256,HS256
             - name: CircuitBreaker
               args:
                 name: UPLOAD-SERVICE
                 fallbackuri: forward:/uploadServiceFallBack
-        - id: LOGIN-SERVICE
+        - id: login-service
           uri: lb://LOGIN-SERVICE
           predicates:
             Path=/login/**
-        - id: DOWNLOAD-SERVICE
-          uri: lb://DOWNLOAD-SERVICE
-          predicates:
-            Path=/download/**
-          filters:
-            - AuthFilter
-            - name: CircuitBreaker
-              args:
-                name: DOWNLOAD-SERVICE
-                fallbackuri: forward:/downloadServiceFallBack

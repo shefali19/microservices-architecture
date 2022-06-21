@@ -1,7 +1,6 @@
 package com.learning.loginservice.login.controller;
 
 import com.learning.loginservice.login.dto.JwtRequest;
-import com.learning.loginservice.login.dto.JwtResponse;
 import com.learning.loginservice.login.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +15,9 @@ public class JwtAuthenticationController {
     JwtUserDetailsService jwtUserDetailsService;
 
     @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest) {
-        String token = jwtUserDetailsService.getJWTToken(authenticationRequest.getUsername());
-        return ResponseEntity.ok(new JwtResponse(token));
+    public ResponseEntity<?> login(@RequestBody JwtRequest authenticationRequest) {;
+        return ResponseEntity.ok(jwtUserDetailsService.
+                loadUserByUsername(authenticationRequest));
     }
 
-    @PostMapping(value = "/validateToken")
-    public ResponseEntity<?> validate(@RequestParam String token) {
-        return ResponseEntity.ok(jwtUserDetailsService.getValidateToken(token));
-    }
 }

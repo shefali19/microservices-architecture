@@ -1,14 +1,13 @@
-package com.learning.loginservice.login.dto;
+package com.learning.api.gateway.api.gateway.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtRequest {
+public class JwtRquest {
     private String username;
-    private String password;
+    private String token;
 }

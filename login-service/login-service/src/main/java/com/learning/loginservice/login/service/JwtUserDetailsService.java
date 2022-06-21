@@ -1,36 +1,35 @@
 package com.learning.loginservice.login.service;
 
+import com.learning.loginservice.login.dto.JwtRequest;
+import com.learning.loginservice.login.dto.JwtResponse;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+import javax.annotation.PostConstruct;
+import java.util.Base64;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class JwtUserDetailsService implements UserDetailsService {
+public class JwtUserDetailsService {
     @Value("${jwt.secret}")
     private String secretKey;
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if ("username".equals(username)) {
-            return new User("username", "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6",
-                    new ArrayList<>());
+    @PostConstruct
+    protected void init() {
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
+
+    public String loadUserByUsername(JwtRequest authenticationRequest)  {
+        if ("username".equals(authenticationRequest.getUsername())) {
+           return getJWTToken(authenticationRequest.getUsername());
         } else {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with username: " +
+                    authenticationRequest.getUsername());
         }
     }
 
-    public String getJWTToken(String username) {
-        String secretKey = "mySecretKey";
+    private String getJWTToken(String username) {
         String token = Jwts
                 .builder()
                 .setId("self")
@@ -38,19 +37,10 @@ public class JwtUserDetailsService implements UserDetailsService {
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 600000))
                 .signWith(SignatureAlgorithm.HS256,
-                        secretKey.getBytes()).compact();
+                        secretKey).compact();
+        /*JwtResponse jwtResponse = new JwtResponse();
+        jwtResponse.setJwttoken(token);
+        jwtResponse.setUsername(username);*/
         return token;
-    }
-
-    public String getValidateToken(String token) {
-        String username = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-        if(username.isEmpty()){
-            throw new RuntimeException("token is invalid");
-        }
-        return getJWTToken(username);
     }
 }

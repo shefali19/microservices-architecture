@@ -1,12 +1,13 @@
-package com.learning.loginservice.login.dto;;
+package com.learning.loginservice.login.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtResponse {
-    private final String jwttoken;
-    public JwtResponse(String jwttoken) {
-        this.jwttoken = jwttoken;
-    }
-
-    public String getToken() {
-        return this.jwttoken;
-    }
+    private String jwttoken;
+    private String username;
 }
