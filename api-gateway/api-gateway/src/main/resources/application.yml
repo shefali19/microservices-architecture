@@ -4,11 +4,15 @@ server:
 spring:
   application:
     name: API-GATEWAY
+  zipkin:
+    base-url: http://127.0.0.1:9411/
   #security:
     #oauth2:
       #resourceserver:
         #jwt:
           #issuer-uri: http://:8080/realms/myrealm
+jwt:
+  secret: my-secret-key
 
 resilience4j:
   circuitbreaker:

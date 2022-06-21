@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class DocumentDetails {
 
     private String documentType;
-    private String documentName;
+    private String documentname;
     private String uploadDirectory;
 }

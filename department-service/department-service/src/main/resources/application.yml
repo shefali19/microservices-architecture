@@ -4,5 +4,6 @@ server:
 spring:
   application:
     name: DEPARTMENT-SERVICE
+  #adding zipkin for tracking purposes
   zipkin:
     base-url: http://127.0.0.1:9411/

@@ -1,0 +1,11 @@
+server:
+  port: 9003
+
+spring:
+  application:
+    name: LOGIN-SERVICE
+  zipkin:
+    base-url: http://127.0.0.1:9411/
+
+jwt:
+  secret: my-secret-key

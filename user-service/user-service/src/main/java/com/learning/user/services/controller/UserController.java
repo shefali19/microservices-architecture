@@ -20,8 +20,7 @@ public class UserController implements UserAPI {
     @PostMapping(value = "/create")
     public ResponseEntity<?> createUser(@RequestBody UserDetails user){
         log.info("Controller:: create new user");
-        userService.createUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ok().body(userService.createUser(user));
     }
 
     @PostMapping(value = "/search")

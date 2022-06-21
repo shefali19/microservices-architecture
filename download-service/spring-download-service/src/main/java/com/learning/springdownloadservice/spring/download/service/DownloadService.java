@@ -11,25 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-@Slf4j
-public class DownloadService {
-    @Value("${document.download-directory}")
-    public String downloadDirectory;
-    public Resource download(String filename){
-        Path path = Paths
-                .get(downloadDirectory).resolve(filename);
-        try{
-                Resource resource = new UrlResource(path.toUri());
-                if(resource.exists() || resource.isReadable()){
-                    log.info("Resource exists ::::");
-                    return resource;
-                }else {
-                    throw new FileNotFoundException("File not found " + filename);
-                }
-        } catch (MalformedURLException e) {
-            throw new RuntimeException(e.getMessage());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
+public interface DownloadService {
+    public Resource download(String filename);
 }

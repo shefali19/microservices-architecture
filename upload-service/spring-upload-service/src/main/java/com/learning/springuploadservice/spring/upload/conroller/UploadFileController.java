@@ -16,7 +16,6 @@ import java.util.List;
 @RequestMapping("/upload")
 @Slf4j
 public class UploadFileController {
-
     @Autowired
     UploadService documentService;
 
@@ -27,7 +26,8 @@ public class UploadFileController {
         try{
             String documentname = documentService.storeInPath(file,metadata);
             log.info("File Upload has been started");
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("Document has been succesffully uploaded" + documentname);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).
+                    body("Document has been succesffully uploaded" + documentname);
         }catch(Exception uploadFailed){
             log.error("upload exception");
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Document upload exception has been occured");
@@ -35,7 +35,7 @@ public class UploadFileController {
     }
 
     @GetMapping(value ="/{userid}")
-    public List<UploadFileMetadata> getUploadDetails(@PathVariable("userid") Long userId){
+    public List<UploadFileMetadata> getUploadDetails(@PathVariable("userid") Long userId) throws Exception {
         log.info("Controller::find document details by userId ::::");
         return documentService.findByUserId(userId);
     }

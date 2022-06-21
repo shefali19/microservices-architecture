@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class DocumentMetadata {
 
     private Long userId;
-    private String documentType;
+    private String documentName;
 
 }

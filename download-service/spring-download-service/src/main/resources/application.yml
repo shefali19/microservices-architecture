@@ -1,5 +1,8 @@
 server:
   port: 9005
 
-application:
-  name: DOWNLOAD-SERVICE
+spring:
+  application:
+    name: DOWNLOAD-SERVICE
+  zipkin:
+    base-url: http://127.0.0.1:9411/

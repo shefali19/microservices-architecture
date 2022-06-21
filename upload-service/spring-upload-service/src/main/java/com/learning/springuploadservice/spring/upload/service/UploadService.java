@@ -8,5 +8,5 @@ import java.util.List;
 public interface UploadService {
     public String storeInPath(MultipartFile file, DocumentMetadata documentMetadata);
 
-    public List<UploadFileMetadata> findByUserId(Long userId);
+    public List<UploadFileMetadata> findByUserId(Long userId) throws Exception;
 }
