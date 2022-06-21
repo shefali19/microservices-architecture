@@ -1,6 +1,7 @@
 package com.learning.user.services.entity;
 
 import com.learning.user.services.dto.UserDetails;
+
 import java.util.Objects;
 import java.util.function.Function;
 

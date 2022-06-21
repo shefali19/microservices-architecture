@@ -1,23 +1,25 @@
 package com.learning.user.services.service.impl;
 
+import com.learning.user.services.constants.Constants;
 import com.learning.user.services.dto.Department;
-import com.learning.user.services.dto.ResponseTemplate;
 import com.learning.user.services.dto.DocumentDetails;
+import com.learning.user.services.dto.ResponseTemplate;
 import com.learning.user.services.dto.UserDetails;
 import com.learning.user.services.entity.User;
 import com.learning.user.services.repository.UserRepository;
-import com.learning.user.services.constants.Constants;
 import com.learning.user.services.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
+
 import static com.learning.user.services.entity.UserQuery.createQueryToFetchUserDetails;
 
 /**
